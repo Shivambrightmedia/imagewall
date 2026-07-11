@@ -36,7 +36,7 @@ body {
   width: 4200px;
   height: 504px;
   overflow: hidden;
-  background: #1e293b;
+  background-color: transparent;
 }
 
 /* 2 Image Zones in Top Bar (840x504 each) — above the walkway gaps */
@@ -46,11 +46,19 @@ body {
   width: 840px;
   height: 504px;
   overflow: hidden;
-  background: #1e3a8a;
+  background-color: transparent;
 }
 
-#topZone1 { left: 840px; }  /* Above gap 1 */
-#topZone2 { left: 2520px; } /* Above gap 2 */
+#topZone1 {
+  left: 840px;
+}
+
+/* Above gap 1 */
+#topZone2 {
+  left: 2520px;
+}
+
+/* Above gap 2 */
 
 /* The 3 Pillars (840x1512 each) — full height */
 .pillar {
@@ -59,8 +67,7 @@ body {
   width: 840px;
   height: 1512px;
   overflow: hidden;
-  background: #1e3a8a;
-  /* Bluish color for visibility */
+  background-color: transparent;
 }
 
 #pillar1 {
