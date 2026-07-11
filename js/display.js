@@ -68,6 +68,12 @@ function showNextSlide() {
     const container = zones[i];
     const imgData = currentImages[(currentIndex + i) % currentImages.length];
 
+    const existingSlides = container.querySelectorAll('.slide');
+    existingSlides.forEach(slide => {
+      slide.classList.remove('active'); // Fade it out
+      setTimeout(() => slide.remove(), 1600); // Remove after fade completes
+    });
+
     const newSlide = document.createElement('div');
     newSlide.className = 'slide';
 
@@ -80,14 +86,7 @@ function showNextSlide() {
     container.appendChild(newSlide);
 
     void newSlide.offsetWidth;
-    newSlide.classList.add('active');
-
-    setTimeout(() => {
-      const allSlides = container.querySelectorAll('.slide');
-      allSlides.forEach(slide => {
-        if (slide !== newSlide) slide.remove();
-      });
-    }, 1500);
+    newSlide.classList.add('active'); // Fade it in
   }
 
   // Advance by 5 for next tick
