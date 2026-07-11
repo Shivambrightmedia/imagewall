@@ -149,10 +149,13 @@ if (setFolderBtn && folderInput) {
     }
 
     // Find custom border frame image
-    const borderIndex = imageFiles.findIndex(file => file.name.toLowerCase().includes('border') || file.name.toLowerCase().includes('boarder'));
+    const borderIndex = imageFiles.findIndex(file => {
+      const name = file.name.toLowerCase();
+      return name.includes('border') || name.includes('boarder') || name.includes('frame');
+    });
     if (borderIndex !== -1) {
       const borderUrl = URL.createObjectURL(imageFiles[borderIndex]);
-      document.documentElement.style.setProperty('--border-url', `url(${borderUrl})`);
+      document.documentElement.style.setProperty('--border-url', `url("${borderUrl}")`);
       imageFiles.splice(borderIndex, 1);
     } else {
       document.documentElement.style.setProperty('--border-url', 'none');
