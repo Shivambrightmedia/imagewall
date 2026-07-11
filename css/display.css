@@ -117,8 +117,9 @@ body {
 .slide img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  /* or cover, depending on preference */
+  object-fit: cover;
+  border: 2px solid white;
+  box-sizing: border-box;
 }
 
 @keyframes cellEnter {
