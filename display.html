@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=4200">
+  <title>Image Wall — Display</title>
+  <meta name="description" content="Real-time image wall display — 4200×1512">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/display.css">
+</head>
+
+<body>
+  <div class="display-scaler" id="displayScaler">
+
+    <!-- Empty State -->
+    <div class="empty-state" id="emptyState">
+      <div class="pulse-ring">
+        <span class="icon">📁</span>
+      </div>
+      <h2 style="font-size: 8rem; margin: 20px 0;">Choose Folder</h2>
+      <p style="font-size: 3rem; color: #a1a1aa; max-width: 2500px; text-align: center; margin-bottom: 50px;">Select the
+        folder on your laptop containing all the images.</p>
+
+      <div style="display: flex; gap: 20px; z-index: 100; align-items: center; position: relative;">
+        <!-- Hidden actual file input -->
+        <input type="file" id="folderInput" webkitdirectory directory multiple style="display: none;">
+        <!-- Custom styled button -->
+        <button id="setFolderBtn"
+          style="padding: 24px 60px; border-radius: 16px; border: none; background: linear-gradient(135deg, #8b5cf6, #06b6d4); color: white; font-size: 4rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 20px;">
+          <span>📂</span> Select Image Folder
+        </button>
+      </div>
+      <div id="folderError" style="color: #ef4444; font-size: 3rem; margin-top: 30px; display: none;">Folder not found!
+      </div>
+    </div>
+
+    <!-- Arch Layout Container (4200x1512) -->
+    <div class="arch-layout" id="slideshowContainer">
+      <!-- Top Bar background -->
+      <div class="top-bar" id="topBar"></div>
+      
+      <!-- 2 Image Zones in Top Bar (840x504) — above the walkway gaps -->
+      <div class="top-zone" id="topZone1"></div>
+      <div class="top-zone" id="topZone2"></div>
+      
+      <!-- 3 Pillars (840x1008 each) — below top bar -->
+      <div class="pillar" id="pillar1"></div>
+      <div class="pillar" id="pillar2"></div>
+      <div class="pillar" id="pillar3"></div>
+    </div>
+
+    <!-- QR Code Corner (Hidden) -->
+    <div class="qr-corner" id="qrCorner">
+      <canvas id="qrCanvas"></canvas>
+      <div class="qr-label">
+        <strong>Scan to capture</strong>
+        Open on your phone
+      </div>
+    </div>
+
+  </div>
+
+  <!-- QR Code library -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js"></script>
+
+  <script src="js/display.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,307 @@
+/* ========================================
+   Display Wall — 4200 × 1512 Grid
+   ======================================== */
+
+/* Full viewport wrapper that scales to fit browser */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: #050508;
+}
+
+.display-scaler {
+  width: 4200px;
+  height: 1512px;
+  transform-origin: top left;
+  position: relative;
+  overflow: hidden;
+  background: #050508;
+}
+
+/* Arch Layout Container */
+.arch-layout {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* The Top Bar background (4200x504) */
+.top-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4200px;
+  height: 504px;
+  overflow: hidden;
+  background: #1e293b;
+}
+
+/* 2 Image Zones in Top Bar (840x504 each) — above the walkway gaps */
+.top-zone {
+  position: absolute;
+  top: 0;
+  width: 840px;
+  height: 504px;
+  overflow: hidden;
+  background: #334155;
+}
+
+#topZone1 { left: 840px; }  /* Above gap 1 */
+#topZone2 { left: 2520px; } /* Above gap 2 */
+
+/* The 3 Pillars (840x1512 each) — full height */
+.pillar {
+  position: absolute;
+  top: 0px;
+  width: 840px;
+  height: 1512px;
+  overflow: hidden;
+  background: #f1f5f9;
+  /* Light color for visibility */
+}
+
+#pillar1 {
+  left: 0px;
+}
+
+#pillar2 {
+  left: 1680px;
+}
+
+/* 840 + 840 gap */
+#pillar3 {
+  left: 3360px;
+}
+
+/* 1680 + 840 + 840 gap */
+
+/* Individual Slide */
+.slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slide.active {
+  opacity: 1;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  /* or cover, depending on preference */
+}
+
+@keyframes cellEnter {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+    filter: brightness(2) saturate(0);
+  }
+
+  50% {
+    opacity: 1;
+    filter: brightness(1.3) saturate(0.5);
+  }
+
+  100% {
+    transform: scale(1);
+    filter: brightness(1) saturate(1);
+  }
+}
+
+/* Empty state */
+.empty-state {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  z-index: 10;
+  transition: opacity 0.6s ease;
+}
+
+.empty-state.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.empty-state .pulse-ring {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 2px solid rgba(139, 92, 246, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  animation: emptyPulse 3s ease-in-out infinite;
+}
+
+.empty-state .pulse-ring::before,
+.empty-state .pulse-ring::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(139, 92, 246, 0.15);
+}
+
+.empty-state .pulse-ring::before {
+  inset: -30px;
+  animation: emptyPulse 3s ease-in-out infinite 0.5s;
+}
+
+.empty-state .pulse-ring::after {
+  inset: -60px;
+  animation: emptyPulse 3s ease-in-out infinite 1s;
+}
+
+@keyframes emptyPulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+}
+
+.empty-state .icon {
+  font-size: 5rem;
+}
+
+.empty-state h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.empty-state p {
+  color: #8888a0;
+  font-size: 1.2rem;
+  max-width: 500px;
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* QR Code corner */
+.qr-corner {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  z-index: 20;
+  transition: opacity 0.3s ease;
+}
+
+.qr-corner.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.qr-corner canvas {
+  border-radius: 8px;
+}
+
+.qr-corner .qr-label {
+  color: #8888a0;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.qr-corner .qr-label strong {
+  color: #f0f0f5;
+  display: block;
+  font-size: 0.95rem;
+}
+
+/* Image count overlay */
+.image-counter {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 8px 18px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 100px;
+  backdrop-filter: blur(10px);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.image-counter .counter-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10b981;
+  animation: pulse 2s ease infinite;
+}
+
+/* Clear button */
+.clear-btn {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  padding: 8px 18px;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: 100px;
+  backdrop-filter: blur(10px);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: rgba(239, 68, 68, 0.7);
+  cursor: pointer;
+  z-index: 20;
+  transition: all 0.3s ease;
+}
+
+.clear-btn:hover {
+  background: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.4;
+  }
+}
