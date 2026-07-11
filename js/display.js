@@ -23,7 +23,7 @@ const zones = [
 let currentImages = [];
 let currentIndex = 0;
 let slideshowInterval = null;
-const SLIDE_DURATION_MS = 3000; // 3 seconds per image
+const SLIDE_DURATION_MS = 5000; // 5 seconds per image (gives ~3.5s hold + 1.5s fade)
 
 // ── Shuffle Array (Fisher-Yates) ───────────────
 function shuffleArray(array) {
