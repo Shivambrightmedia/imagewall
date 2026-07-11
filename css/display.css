@@ -114,11 +114,23 @@ body {
   transition: opacity 1.5s ease-out, transform 3s ease-out;
 }
 
+/* Overlay the custom border image on top of the slide */
+.slide::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--border-url, none);
+  background-size: 100% 100%; /* Stretch border to exactly fit the pillar/zone */
+  background-position: center;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  z-index: 10;
+}
+
 .slide img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  border: 2px solid white;
   box-sizing: border-box;
 }
 

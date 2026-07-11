@@ -148,7 +148,15 @@ if (setFolderBtn && folderInput) {
       return;
     }
 
-    folderError.style.display = 'none';
+    // Find custom border frame image
+    const borderIndex = imageFiles.findIndex(file => file.name.toLowerCase().includes('border') || file.name.toLowerCase().includes('boarder'));
+    if (borderIndex !== -1) {
+      const borderUrl = URL.createObjectURL(imageFiles[borderIndex]);
+      document.documentElement.style.setProperty('--border-url', `url(${borderUrl})`);
+      imageFiles.splice(borderIndex, 1);
+    } else {
+      document.documentElement.style.setProperty('--border-url', 'none');
+    }
 
     // Create a local URL for each image
     const images = imageFiles.map((file, index) => ({
