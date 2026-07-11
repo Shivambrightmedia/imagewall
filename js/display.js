@@ -25,6 +25,14 @@ let currentIndex = 0;
 let slideshowInterval = null;
 const SLIDE_DURATION_MS = 3000; // 3 seconds per image
 
+// ── Shuffle Array (Fisher-Yates) ───────────────
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
 // ── Scale display to fit browser window ─────────
 function scaleToFit() {
   const winW = window.innerWidth;
@@ -83,7 +91,13 @@ function showNextSlide() {
   }
 
   // Advance by 5 for next tick
-  currentIndex = (currentIndex + 5) % currentImages.length;
+  currentIndex += 5;
+
+  // If we reached the end, reshuffle and start over
+  if (currentIndex >= currentImages.length) {
+    shuffleArray(currentImages);
+    currentIndex = 0;
+  }
 }
 
 // ── Render Data ─────────────────────────────────
@@ -97,8 +111,11 @@ function updateData(images) {
     if (slideshowInterval) clearInterval(slideshowInterval);
     return;
   }
-  
+
   emptyState.classList.add('hidden');
+
+  // Initial shuffle
+  shuffleArray(currentImages);
 
   // If slideshow isn't running or pillars are empty, start it
   if (count > 0 && (!slideshowInterval || zones[0].children.length === 0)) {
@@ -121,16 +138,16 @@ if (setFolderBtn && folderInput) {
   // When files are selected
   folderInput.addEventListener('change', (e) => {
     const files = Array.from(e.target.files);
-    
+
     // Filter only images
     const imageFiles = files.filter(file => file.type.startsWith('image/'));
-    
+
     if (imageFiles.length === 0) {
       folderError.textContent = 'No images found in that folder!';
       folderError.style.display = 'block';
       return;
     }
-    
+
     folderError.style.display = 'none';
 
     // Create a local URL for each image
