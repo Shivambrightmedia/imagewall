@@ -75,7 +75,7 @@ function showNextSlide() {
     });
 
     const newSlide = document.createElement('div');
-    newSlide.className = 'slide';
+    newSlide.className = 'slide entering';
 
     const imgEl = document.createElement('img');
     imgEl.src = imgData.url;
@@ -85,8 +85,9 @@ function showNextSlide() {
     newSlide.appendChild(imgEl);
     container.appendChild(newSlide);
 
-    void newSlide.offsetWidth;
-    newSlide.classList.add('active'); // Fade it in
+    void newSlide.offsetWidth; // Force reflow
+    newSlide.classList.remove('entering');
+    newSlide.classList.add('active'); // Fade in and shrink
   }
 
   // Advance by 5 for next tick
