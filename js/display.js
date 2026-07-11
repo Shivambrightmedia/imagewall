@@ -150,22 +150,7 @@ if (setFolderBtn && folderInput) {
 
     folderError.style.display = 'none';
 
-    // Find background image (LED_Homelook)
-    const bgFileIndex = imageFiles.findIndex(file => file.name.toLowerCase().includes('led_homelook'));
-    if (bgFileIndex !== -1) {
-      const bgUrl = URL.createObjectURL(imageFiles[bgFileIndex]);
-      document.getElementById('slideshowContainer').style.backgroundImage = `url(${bgUrl})`;
-      document.getElementById('slideshowContainer').style.backgroundSize = 'cover';
-      document.getElementById('slideshowContainer').style.backgroundPosition = 'center';
-      
-      // Remove it from slideshow array
-      imageFiles.splice(bgFileIndex, 1);
-    } else {
-      // Clear background if not found
-      document.getElementById('slideshowContainer').style.backgroundImage = 'none';
-    }
-
-    // Create a local URL for each remaining image
+    // Create a local URL for each image
     const images = imageFiles.map((file, index) => ({
       id: index,
       url: URL.createObjectURL(file),

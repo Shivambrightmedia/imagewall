@@ -23,9 +23,13 @@ body {
 /* Arch Layout Container */
 .arch-layout {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
+  background-image: url('../LED_Homelook.png');
+  background-size: cover;
+  background-position: center;
 }
 
 /* The Top Bar background (4200x504) */
