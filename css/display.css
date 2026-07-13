@@ -44,12 +44,12 @@ body {
 }
 
 
-/* The 3 Pillars (840x1512 each) — full height */
+/* The 3 Pillars (840x1008 each) — below top bar */
 .pillar {
   position: absolute;
-  top: 0px;
+  top: 504px;
   width: 840px;
-  height: 1512px;
+  height: 1008px;
   overflow: hidden;
   background-color: transparent;
 }
