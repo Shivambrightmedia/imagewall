@@ -21,7 +21,7 @@ const zones = [
 let currentImages = [];
 let currentIndex = 0;
 let slideshowInterval = null;
-const SLIDE_DURATION_MS = 5000; // 5 seconds per image (gives ~3.5s hold + 1.5s fade)
+const SLIDE_DURATION_MS = 8000; // 8 seconds per image (1.5s out + 1s pause + 1.5s in + 4s hold)
 
 // ── Shuffle Array (Fisher-Yates) ───────────────
 function shuffleArray(array) {
@@ -61,35 +61,44 @@ function startSlideshow() {
 function showNextSlide() {
   if (currentImages.length === 0) return;
 
-  // 5 zones = 5 images at a time
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < zones.length; i++) {
     const container = zones[i];
     const imgData = currentImages[(currentIndex + i) % currentImages.length];
 
     const existingSlides = container.querySelectorAll('.slide');
+    const hasExisting = existingSlides.length > 0;
+
     existingSlides.forEach(slide => {
       slide.classList.remove('active'); // Fade it out
       setTimeout(() => slide.remove(), 1600); // Remove after fade completes
     });
 
-    const newSlide = document.createElement('div');
-    newSlide.className = 'slide entering';
+    const showNewImage = () => {
+      const newSlide = document.createElement('div');
+      newSlide.className = 'slide entering';
 
-    const imgEl = document.createElement('img');
-    imgEl.src = imgData.url;
-    imgEl.alt = 'Wall photo';
-    imgEl.draggable = false;
+      const imgEl = document.createElement('img');
+      imgEl.src = imgData.url;
+      imgEl.alt = 'Wall photo';
+      imgEl.draggable = false;
 
-    newSlide.appendChild(imgEl);
-    container.appendChild(newSlide);
+      newSlide.appendChild(imgEl);
+      container.appendChild(newSlide);
 
-    void newSlide.offsetWidth; // Force reflow
-    newSlide.classList.remove('entering');
-    newSlide.classList.add('active'); // Fade in and shrink
+      void newSlide.offsetWidth; // Force reflow
+      newSlide.classList.remove('entering');
+      newSlide.classList.add('active'); // Fade in and scale up
+    };
+
+    if (hasExisting) {
+      setTimeout(showNewImage, 2500); // 1.5s fade out + 1s pause
+    } else {
+      showNewImage();
+    }
   }
 
-  // Advance by 5 for next tick
-  currentIndex += 5;
+  // Advance by number of zones for next tick
+  currentIndex += zones.length;
 
   // If we reached the end, reshuffle and start over
   if (currentIndex >= currentImages.length) {

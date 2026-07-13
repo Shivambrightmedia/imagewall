@@ -84,14 +84,14 @@ body {
 }
 
 .slide.entering {
-  transform: scale(1.2);
+  transform: scale(1.5);
   transition: none;
 }
 
 .slide.active {
   opacity: 1;
   transform: scale(1);
-  transition: opacity 1.5s ease-out, transform 3s ease-out;
+  transition: opacity 1.5s ease-out, transform 1.5s ease-out;
 }
 
 /* Overlay the custom border image on top of the slide */
