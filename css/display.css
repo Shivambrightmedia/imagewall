@@ -43,26 +43,6 @@ body {
   background-color: transparent;
 }
 
-/* 2 Image Zones in Top Bar (840x504 each) — above the walkway gaps */
-.top-zone {
-  position: absolute;
-  top: 0;
-  width: 840px;
-  height: 504px;
-  overflow: hidden;
-  background-color: transparent;
-}
-
-#topZone1 {
-  left: 840px;
-}
-
-/* Above gap 1 */
-#topZone2 {
-  left: 2520px;
-}
-
-/* Above gap 2 */
 
 /* The 3 Pillars (840x1512 each) — full height */
 .pillar {

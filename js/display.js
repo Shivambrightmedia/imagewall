@@ -14,9 +14,7 @@ const displayScaler = document.getElementById('displayScaler');
 // All 5 image zones: 3 pillars + 2 top zones above walkways
 const zones = [
   document.getElementById('pillar1'),
-  document.getElementById('topZone1'),
   document.getElementById('pillar2'),
-  document.getElementById('topZone2'),
   document.getElementById('pillar3')
 ];
 
